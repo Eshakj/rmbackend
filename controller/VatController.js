@@ -4,8 +4,8 @@ const Vat = require("../models/Vat")
 const getAllVat= async(req,res)=>{
     try {
         //select all from customers
-        const vat = await Vat.query()
-        return res.status(200).json(products)
+        const vats = await Vat.query()
+        return res.status(200).json(vats)
 
     } catch (error) {
         console.error(error.message)
@@ -18,8 +18,9 @@ const getAllVat= async(req,res)=>{
 const addVat= async(req,res)=>{    
     try {
         const { vat_code, vat_percent} = req.body
-        const product={
-            vat_code: Math.floor(Math.random()* 100000),
+        const vat={
+            id : Math.floor(Math.random()* 100000),
+            vat_code,
             vat_percent,      
         }
 
@@ -38,37 +39,41 @@ const addVat= async(req,res)=>{
 
 
 
-    // const updateProduct= async(req,res)=>{    
-    //    try {
-    //    const {id}= req.params
-    //     const customerUpdated = await Customer.query()
-    //     .findById(id)
-    //     .patch(req.body);
-    //     return res.status(200).json('Customer updated successfully')
+    const updateVat= async(req,res)=>{    
+       try {
+       const {id}= req.params
+        const customerUpdated = await Vat.query()
+        .findById(id)
+        .patch(req.body);
+        return res.status(200).json('Vat updated successfully')
 
-    //    } catch (error) {
-    //     console.error(error.message)
-    //     return res.status(500).json(error.message)
-    //    }
+       } catch (error) {
+        console.error(error.message)
+        return res.status(500).json(error.message)
+       }
     
            
     
-    //   }
+      }
      
-    
-    // const deleteProduct = async (req,res)=>{
-    //     const {id} = req.params
-    //     const numDeleted = await Customer.query().deleteById(id);
-    //     return res.status(200).json('Customer deleted successfully')
+ const deleteVat = async (req,res)=>{
+        try {
+            const {id} = req.params
+        const numDeleted = await Vat.query().deleteById(id);
+        return res.status(200).json('Vat deleted successfully')
+        } catch (error) {
+            console.error(error.message)
+        }
+        
 
-    // }
-    
+    }
 
 
 
 
 
-module.exports= { getAllVat, addVat,updateProduct,deleteProduct}
+
+module.exports= { getAllVat, addVat, updateVat, deleteVat}
 
 
 

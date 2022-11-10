@@ -20,7 +20,8 @@ const addProduct= async(req,res)=>{
         const {product_code,product_name,product_cost_price,product_sell_price,product_vat,product_deposit,product_installment_amount,product_installment_count
         } = req.body
         const product={
-            product_code: Math.floor(Math.random()* 100000),
+            id :Math.floor(Math.random()* 100000),
+            product_code,
             product_name,
             product_cost_price,
             product_sell_price,
@@ -42,41 +43,38 @@ const addProduct= async(req,res)=>{
 
 }
 
+const updateProduct= async(req,res)=>{    
+       try {
+       const {id}= req.params
+        const customerUpdated = await Product.query()
+        .findById(id)
+        .patch(req.body);
+        return res.status(200).json('Product updated successfully')
 
+       } catch (error) {
+        console.error(error.message)
+        return res.status(500).json(error.message)
+       }
+      }
 
+const deleteProduct = async (req,res)=>{
+        try {
+            const {id} = req.params
+        const numDeleted = await Product.query().deleteById(id);
+        return res.status(200).json('Product deleted successfully')
+        } catch (error) {
+            console.error(error.message)
+        res.status(500).json(error.message)
+        }
 
-
-    // const updateProduct= async(req,res)=>{    
-    //    try {
-    //    const {id}= req.params
-    //     const customerUpdated = await Customer.query()
-    //     .findById(id)
-    //     .patch(req.body);
-    //     return res.status(200).json('Customer updated successfully')
-
-    //    } catch (error) {
-    //     console.error(error.message)
-    //     return res.status(500).json(error.message)
-    //    }
-    
-           
-    
-    //   }
-     
-    
-    // const deleteProduct = async (req,res)=>{
-    //     const {id} = req.params
-    //     const numDeleted = await Customer.query().deleteById(id);
-    //     return res.status(200).json('Customer deleted successfully')
-
-    // }
+    }
     
 
 
 
 
 
-module.exports= { getAllProducts, addProduct,updateProduct,deleteProduct}
+module.exports= { getAllProducts, addProduct, updateProduct,deleteProduct}
 
 
 

@@ -5,6 +5,6 @@ module.exports = knex ({
         host: 'localhost',
         user: 'postgres',
         password: 'postgres',
-        database: 'test',
+        database: 'store',
     }
 })

@@ -3,10 +3,10 @@ const { Model } = require('objection')
 
 Model.knex(knex)
 
-class Vat extends Model {
+class Customer extends Model {
   static get tableName() {
-    return 'vats';
+    return 'distributorpaymentmasters';
   }
 }
 
-module.exports = Vat;
+module.exports = Customer;
